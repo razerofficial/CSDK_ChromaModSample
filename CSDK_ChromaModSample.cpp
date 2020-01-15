@@ -5,6 +5,8 @@
 #include <conio.h>
 #include <iostream>
 #include <vector>
+#include <filesystem>
+#include <stdio.h>
 
 using namespace std;
 
@@ -13,11 +15,35 @@ class Selections
 public:
 	void DetectMods()
 	{
-		_mSkins.push_back("Base");
-		_mSkins.push_back("Skin1");
-		_mSkins.push_back("Skin2");
-		_mSkins.push_back("Mod1");
-		_mSkins.push_back("Mod2");
+		// Sample Game Animations and Skins
+		std::string path = "Animations";
+		for (const auto & entry : std::filesystem::directory_iterator(path))
+		{
+			wstring ws(entry.path().filename());
+			string str(ws.begin(), ws.end());
+			_mSkins.push_back(str);
+		}
+
+		// Sample mods
+		char *pValue;
+		size_t len;
+		errno_t err = _dupenv_s(&pValue, &len, "APPDATA");
+		path = string(pValue);
+		free(pValue);
+		path += "\\..\\Local\\Razer\\CSDK_ChromaModSample";
+		if (filesystem::exists(path))
+		{
+			for (const auto & entry : std::filesystem::directory_iterator(path))
+			{
+				wstring ws(entry.path().filename());
+				string str(ws.begin(), ws.end());
+				_mSkins.push_back(str);
+			}
+		}
+		else
+		{
+			filesystem::create_directory(path);
+		}
 	}
 	vector<string> GetSkins()
 	{
