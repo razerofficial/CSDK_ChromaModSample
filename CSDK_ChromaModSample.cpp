@@ -7,7 +7,9 @@
 #include <vector>
 #include <filesystem>
 #include <stdio.h>
+#include "Razer\ChromaAnimationAPI.h"
 
+using namespace ChromaSDK;
 using namespace std;
 
 class Selections
@@ -72,12 +74,50 @@ public:
 		list.push_back("Damage");
 		return list;
 	}
+	void StartEffect(const string& path)
+	{
+		ChromaAnimationAPI::StopAll();
+		ChromaAnimationAPI::CloseAll();
+
+		ChromaAnimationAPI::ReduceFramesName((path + "_ChromaLink.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + "_Headset.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + "_Keyboard.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + "_Keypad.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + "_Mouse.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + "_Mousepad.chroma").c_str(), 2);
+
+		ChromaAnimationAPI::OverrideFrameDurationName((path + "_ChromaLink.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Headset.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Keyboard.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Keypad.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Mouse.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Mousepad.chroma").c_str(), 0.033f);
+
+		ChromaAnimationAPI::PlayComposite(path.c_str(), true);
+	}
+	void PlayEffect()
+	{
+		if (_mSkins[_mSkinId].compare("Base") == 0)
+		{
+			string path = GetGameAnimationDirectory();
+			path += "\\";
+			path += _mSkins[_mSkinId];
+			path += "\\";
+			path += GetClasses()[_mClassId];
+			path += "\\";
+			path += GetEffects()[_mEffectId];
+			StartEffect(path.c_str());
+		}
+	}
 	void HandleInput(int input)
 	{
 		switch (input)
 		{
 		case 'Q':
 		case 'q':
+			ChromaAnimationAPI::StopAll();
+			ChromaAnimationAPI::CloseAll();
+			ChromaAnimationAPI::Uninit();
 			exit(0);
 			return;
 		case 'S':
@@ -133,7 +173,7 @@ public:
 		list = GetEffects();
 		DisplayList(list, _mEffectId);
 
-		cout << "Press [Q], [S], [C], [E]";
+		cout << "Press [Q], [S], [C], [E]" << endl << endl;
 	}
 private:
 	vector<string> _mSkins;
@@ -148,16 +188,29 @@ void GameLoop()
 	Selections selections;
 	selections.DetectMods();
 	selections.Print();
+	selections.PlayEffect();
 	while (true)
 	{
 		int input = _getch();
 		selections.HandleInput(input);
 		selections.Print();
+		selections.PlayEffect();
 	}
 }
 
 int main()
 {
+	if (ChromaAnimationAPI::InitAPI() != 0)
+	{
+		cerr << "Failed to load Chroma library!" << endl;
+		exit(1);
+	}
+	RZRESULT result = ChromaAnimationAPI::Init();
+	if (result != RZRESULT_SUCCESS)
+	{
+		cerr << "Failed to initialize Chroma!" << endl;
+		exit(1);
+	}
 	GameLoop();
 	return 0;
 }

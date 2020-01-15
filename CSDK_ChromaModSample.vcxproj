@@ -154,6 +154,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Razer\ChromaAnimationAPI.h" />
+    <ClInclude Include="Razer\ChromaSDKPluginTypes.h" />
+    <ClInclude Include="Razer\RzChromaSDKDefines.h" />
+    <ClInclude Include="Razer\RzChromaSDKTypes.h" />
+    <ClInclude Include="Razer\RzErrors.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CSDK_ChromaModSample.cpp" />
@@ -163,6 +168,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Razer\ChromaAnimationAPI.cpp" />
+    <ClCompile Include="Razer\ChromaSDKPluginTypes.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CChromaEditorLibrary.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
