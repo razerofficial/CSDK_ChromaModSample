@@ -13,11 +13,24 @@ using namespace std;
 class Selections
 {
 public:
+	string GetGameAnimationDirectory()
+	{
+		return "Animations";
+	}
+	string GetAppModDirectory()
+	{
+		char *pValue;
+		size_t len;
+		errno_t err = _dupenv_s(&pValue, &len, "APPDATA");
+		string path(pValue);
+		free(pValue);
+		path += "\\..\\Local\\Razer\\CSDK_ChromaModSample";
+		return path;
+	}
 	void DetectMods()
 	{
 		// Sample Game Animations and Skins
-		std::string path = "Animations";
-		for (const auto & entry : std::filesystem::directory_iterator(path))
+		for (const auto & entry : std::filesystem::directory_iterator(GetGameAnimationDirectory()))
 		{
 			wstring ws(entry.path().filename());
 			string str(ws.begin(), ws.end());
@@ -25,15 +38,9 @@ public:
 		}
 
 		// Sample mods
-		char *pValue;
-		size_t len;
-		errno_t err = _dupenv_s(&pValue, &len, "APPDATA");
-		path = string(pValue);
-		free(pValue);
-		path += "\\..\\Local\\Razer\\CSDK_ChromaModSample";
-		if (filesystem::exists(path))
+		if (filesystem::exists(GetAppModDirectory()))
 		{
-			for (const auto & entry : std::filesystem::directory_iterator(path))
+			for (const auto & entry : std::filesystem::directory_iterator(GetAppModDirectory()))
 			{
 				wstring ws(entry.path().filename());
 				string str(ws.begin(), ws.end());
@@ -42,7 +49,7 @@ public:
 		}
 		else
 		{
-			filesystem::create_directory(path);
+			filesystem::create_directory(GetAppModDirectory());
 		}
 	}
 	vector<string> GetSkins()
@@ -109,7 +116,7 @@ public:
 	void Print()
 	{
 		system("CLS");
-		cout << "Welcome to the C++ Chroma Mod Sample" << endl;
+		cout << "Welcome to the C++ Chroma Mod Sample" << endl << endl;
 		cout << "Press [Q] to Quit" << endl << endl;
 
 		vector<string> list;
@@ -125,6 +132,8 @@ public:
 		cout << "[E] Chroma Effects:" << endl;
 		list = GetEffects();
 		DisplayList(list, _mEffectId);
+
+		cout << "Press [Q], [S], [C], [E]";
 	}
 private:
 	vector<string> _mSkins;
