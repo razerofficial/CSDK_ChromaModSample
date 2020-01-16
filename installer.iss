@@ -31,8 +31,8 @@ Source: "Animations\Base\Thief\*"; DestDir: "{userpf}\Razer\CSDK_ChromaModSample
 
 [Icons]
 Name: "{group}\C++ Chroma Mod Sample"; Filename: "{userpf}\Razer\CSDK_ChromaModSample\CSDK_ChromaModSample.exe"; WorkingDir: "{app}";
-Name: "{commondesktop}\Chroma Discord App"; Filename: "{userpf}\Razer\CSDK_ChromaModSample\CSDK_ChromaModSample.exe"; WorkingDir: "{app}";
-Name: "{group}\Uninstall Chroma Discord App"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\C++ Chroma Mod Sample"; Filename: "{userpf}\Razer\CSDK_ChromaModSample\CSDK_ChromaModSample.exe"; WorkingDir: "{app}";
+Name: "{group}\Uninstall C++ Chroma Mod Sample"; Filename: "{uninstallexe}"
 
 [Run]
 
