@@ -199,7 +199,7 @@ public:
 		list = GetSkins();
 		DisplayList(list, _mSkinId);		
 
-		cout << "[C] Classes:" << endl;
+		cout << "[C] Selected Class:" << endl;
 		list = GetClasses();
 		DisplayList(list, _mClassId);
 
@@ -207,7 +207,7 @@ public:
 		list = GetEffects();
 		DisplayList(list, _mEffectId);
 
-		cout << "Press [Q], [S], [C], [E]" << endl << endl;
+		cout << "Press [Q], [O], [M], [S], [C], [E]" << endl << endl;
 	}
 private:
 	vector<string> _mSkins;
