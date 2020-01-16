@@ -52,3 +52,5 @@ Each mod has a sample class for `FIGHTER` | `PALADIN` | `THIEF`.
 Each class has a sample effect for `ATTACK` | `BLOCK` | `DAMAGE`.
 
 Each effect has a device Chroma animation for `CHROMALINK` | `HEADSET` | `KEYBOARD` | `KEYPAD` | `MOUSE` | `MOUSEPAD`.
+
+![image_3](images/image_3.png)
