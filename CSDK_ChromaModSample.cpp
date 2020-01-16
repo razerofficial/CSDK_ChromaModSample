@@ -34,9 +34,12 @@ public:
 		// Sample Game Animations and Skins
 		for (const auto & entry : std::filesystem::directory_iterator(GetGameAnimationDirectory()))
 		{
-			wstring ws(entry.path().filename());
-			string str(ws.begin(), ws.end());
-			_mSkins.push_back(str);
+			if (entry.path().extension().compare("") == 0)
+			{
+				wstring ws(entry.path().filename());
+				string str(ws.begin(), ws.end());
+				_mSkins.push_back(str);
+			}
 		}
 
 		// Sample mods
@@ -44,9 +47,12 @@ public:
 		{
 			for (const auto & entry : std::filesystem::directory_iterator(GetAppModDirectory()))
 			{
-				wstring ws(entry.path().filename());
-				string str(ws.begin(), ws.end());
-				_mSkins.push_back(str);
+				if (entry.path().extension().compare("") == 0)
+				{
+					wstring ws(entry.path().filename());
+					string str(ws.begin(), ws.end());
+					_mSkins.push_back(str);
+				}
 			}
 		}
 		else
@@ -185,7 +191,7 @@ public:
 		cout << "Welcome to the C++ Chroma Mod Sample" << endl << endl;
 		cout << "Press [Q] to Quit" << endl << endl;
 		cout << "Press [O] to Open the app directory" << endl << endl;
-		cout << "Press [M] to Open the mod directory" << endl << endl;
+		cout << "Press [M] to Open the mod directory (note: unpack Mod1.zip and Mod2.zip in the mod directory) " << endl << endl;
 
 		vector<string> list;
 
