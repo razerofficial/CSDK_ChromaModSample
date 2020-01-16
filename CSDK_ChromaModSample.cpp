@@ -76,9 +76,11 @@ public:
 	}
 	void StartEffect(const string& path)
 	{
+		// Stop and reset any loaded animations
 		ChromaAnimationAPI::StopAll();
 		ChromaAnimationAPI::CloseAll();
 
+		// Reduce the number of frames to speed up the animation
 		ChromaAnimationAPI::ReduceFramesName((path + "_ChromaLink.chroma").c_str(), 2);
 		ChromaAnimationAPI::ReduceFramesName((path + "_Headset.chroma").c_str(), 2);
 		ChromaAnimationAPI::ReduceFramesName((path + "_Keyboard.chroma").c_str(), 2);
@@ -86,6 +88,7 @@ public:
 		ChromaAnimationAPI::ReduceFramesName((path + "_Mouse.chroma").c_str(), 2);
 		ChromaAnimationAPI::ReduceFramesName((path + "_Mousepad.chroma").c_str(), 2);
 
+		// Se the animation speed to 30 FPS
 		ChromaAnimationAPI::OverrideFrameDurationName((path + "_ChromaLink.chroma").c_str(), 0.033f);
 		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Headset.chroma").c_str(), 0.033f);
 		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Keyboard.chroma").c_str(), 0.033f);
@@ -120,6 +123,24 @@ public:
 			ChromaAnimationAPI::Uninit();
 			exit(0);
 			return;
+		case 'O':
+		case 'o':
+			{
+				string cmd = "CD \"";
+				cmd += GetGameAnimationDirectory();
+				cmd += "\" && cmd /c start .";
+				system(cmd.c_str());
+			}
+			break;
+		case 'M':
+		case 'm':
+			{
+				string cmd = "CD \"";
+				cmd += GetAppModDirectory();
+				cmd += "\" && cmd /c start .";
+				system(cmd.c_str());
+			}
+			break;
 		case 'S':
 		case 's':
 			_mSkinId = (_mSkinId + 1) % GetSkins().size();
@@ -158,6 +179,8 @@ public:
 		system("CLS");
 		cout << "Welcome to the C++ Chroma Mod Sample" << endl << endl;
 		cout << "Press [Q] to Quit" << endl << endl;
+		cout << "Press [O] to Open the app directory" << endl << endl;
+		cout << "Press [M] to Open the mod directory" << endl << endl;
 
 		vector<string> list;
 
