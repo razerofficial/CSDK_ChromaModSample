@@ -19,14 +19,20 @@ public:
 	{
 		return "Animations";
 	}
-	string GetAppModDirectory()
+	string GetAppDataDirectory()
 	{
 		char *pValue;
 		size_t len;
 		errno_t err = _dupenv_s(&pValue, &len, "APPDATA");
 		string path(pValue);
 		free(pValue);
-		path += "\\..\\Local\\Razer\\CSDK_ChromaModSample";
+		path += "\\..\\Local";
+		return path;
+	}
+	string GetAppModDirectory()
+	{
+		string path(GetAppDataDirectory());
+		path += "\\Razer\\CSDK_ChromaModSample\\Mods";
 		return path;
 	}
 	void DetectMods()
@@ -57,7 +63,25 @@ public:
 		}
 		else
 		{
-			filesystem::create_directory(GetAppModDirectory());
+			string path = GetAppDataDirectory();
+
+			path += "\\Razer";
+			if (!filesystem::exists(path))
+			{
+				filesystem::create_directory(path);
+			}
+
+			path += "\\CSDK_ChromaModSample";
+			if (!filesystem::exists(path))
+			{
+				filesystem::create_directory(path);
+			}
+
+			path += "\\Mods";
+			if (!filesystem::exists(path))
+			{
+				filesystem::create_directory(path);
+			}
 		}
 	}
 	vector<string> GetSkins()

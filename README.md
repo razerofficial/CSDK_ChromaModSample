@@ -18,10 +18,10 @@ Mods are controlled using a directory naming convention described in the [setup]
 
 ## Setup
 
-Mod folders with custom Chroma animations can be placed within the application folder.
+Mod folders with custom Chroma animations can be placed within `Mods` subfolder of the application folder.
 
 ```
-%USERPROFILE%\AppData\Local\Razer\CSDK_ChromaModSample
+%USERPROFILE%\AppData\Local\Razer\CSDK_ChromaModSample\Mods
 ```
 
 ![image_2](images/image_2.png)
@@ -34,7 +34,7 @@ Two sample mods can be found in the `Animation` folder.
 Both mods can be unpacked within the application folder. Mods are detected when the application starts.
 
 ```
-%USERPROFILE%\AppData\Local\Razer\CSDK_ChromaModSample
+%USERPROFILE%\AppData\Local\Razer\CSDK_ChromaModSample\Mods
 ├───Mod1
 │   ├───Fighter
 │   ├───Paladin
