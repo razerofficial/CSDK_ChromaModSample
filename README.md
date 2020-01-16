@@ -45,10 +45,10 @@ Both mods can be unpacked within the application folder. Mods are detected when 
     └───Thief
 ```
 
-Mods use the directory template of `MOD NAME` | `CLASS NAME` | `CHROMA ANIMATION`.
+Mods use the directory template of `MOD NAME` | `CLASS NAME` | `EFFECT`.
 
 Each mod has a sample class for `FIGHTER` | `PALADIN` | `THIEF`.
 
-Each class has sample animations for `ATTACK` | `BLOCK` | `DAMAGE`.
+Each class has a sample effect for `ATTACK` | `BLOCK` | `DAMAGE`.
 
-Each animation has a device set for `CHROMALINK` | `HEADSET` | `KEYBOARD` | `KEYPAD` | `MOUSE` | `MOUSEPAD`.
+Each effect has a device Chroma animation for `CHROMALINK` | `HEADSET` | `KEYBOARD` | `KEYPAD` | `MOUSE` | `MOUSEPAD`.
