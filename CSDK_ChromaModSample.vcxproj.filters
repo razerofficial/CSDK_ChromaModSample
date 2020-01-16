@@ -53,5 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CChromaEditorLibrary.dll" />
+    <None Include="CChromaEditorLibrary64.dll" />
   </ItemGroup>
 </Project>
