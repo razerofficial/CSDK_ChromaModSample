@@ -100,17 +100,22 @@ public:
 	}
 	void PlayEffect()
 	{
+		string path;
 		if (_mSkins[_mSkinId].compare("Base") == 0)
 		{
-			string path = GetGameAnimationDirectory();
-			path += "\\";
-			path += _mSkins[_mSkinId];
-			path += "\\";
-			path += GetClasses()[_mClassId];
-			path += "\\";
-			path += GetEffects()[_mEffectId];
-			StartEffect(path.c_str());
+			path = GetGameAnimationDirectory();
 		}
+		else
+		{
+			path = GetAppModDirectory();
+		}
+		path += "\\";
+		path += _mSkins[_mSkinId];
+		path += "\\";
+		path += GetClasses()[_mClassId];
+		path += "\\";
+		path += GetEffects()[_mEffectId];
+		StartEffect(path.c_str());
 	}
 	void HandleInput(int input)
 	{
