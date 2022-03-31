@@ -20,6 +20,19 @@ namespace ChromaSDK
     //! Event notification Window message
     const UINT WM_CHROMA_EVENT = WM_APP+0x2000;
 
+    typedef struct APPINFOTYPE
+    {
+        TCHAR Title[256];
+        TCHAR Description[1024];
+        struct Author
+        {
+            TCHAR Name[256];
+            TCHAR Contact[256];
+        } Author;
+        DWORD SupportedDevice;
+        DWORD Category;
+    } APPINFOTYPE;
+
     //! Chroma generic effects. Note: Not all devices supported the listed effects.
     typedef enum EFFECT_TYPE
     {
@@ -807,6 +820,20 @@ namespace ChromaSDK
         {
             RZCOLOR Color;  //!< Color of the effect.
         } STATIC_EFFECT_TYPE;
+    }
+
+    namespace Stream
+    {
+        enum class StreamStatusType
+        {
+            READY = 0, // ready for commands
+            AUTHORIZING = 1, // the session is being authorized
+            BROADCASTING = 2, // the session is being broadcast
+            WATCHING = 3, // A stream is being watched
+            NOT_AUTHORIZED = 4, // The session is not authorized
+            BROADCAST_DUPLICATE = 5, // The session has duplicate broadcasters
+            SERVICE_OFFLINE = 6, // The service is offline
+        };
     }
 }
 

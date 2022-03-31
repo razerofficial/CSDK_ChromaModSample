@@ -4,6 +4,8 @@
 #include "RzChromaSDKDefines.h"
 #include "RzChromaSDKTypes.h"
 #include "RzErrors.h"
+
+#include <string>
 #include <vector>
 
 namespace ChromaSDK
@@ -24,7 +26,7 @@ namespace ChromaSDK
 	typedef RZRESULT(*CHROMA_SDK_UNREGISTER_EVENT_NOTIFICATION)(void);
 	typedef RZRESULT(*CHROMA_SDK_QUERY_DEVICE)(RZDEVICEID DeviceId, ChromaSDK::DEVICE_INFO_TYPE &DeviceInfo);
 
-	enum EChromaSDKDeviceTypeEnum
+	enum class EChromaSDKDeviceTypeEnum
 	{
 		DE_1D = 0,
 		DE_2D,
@@ -52,10 +54,10 @@ namespace ChromaSDK
 		DE_Keypad,
 		DE_Mouse,
 		DE_Mousepad,
-		DE_MAX
+		DE_MAX,
 	};
 
-	enum EChromaSDKKeyboardKey
+	enum class EChromaSDKKeyboardKey
 	{
 		KK_ESC,
 		KK_F1,
@@ -184,7 +186,7 @@ namespace ChromaSDK
 		KK_INVALID,
 	};
 
-	enum EChromaSDKMouseLED
+	enum class EChromaSDKMouseLED
 	{
 		ML_SCROLLWHEEL,
 		ML_LOGO,
@@ -246,8 +248,6 @@ namespace ChromaSDK
 	struct FChromaSDKColors
 	{
 		std::vector<COLORREF> Colors;
-		FChromaSDKColors();
-		FChromaSDKColors(const FChromaSDKColors& copy);
 	};
 
 	struct FChromaSDKColorFrame1D
@@ -257,7 +257,6 @@ namespace ChromaSDK
 		float Duration;
 
 		FChromaSDKColorFrame1D();
-		FChromaSDKColorFrame1D(const FChromaSDKColorFrame1D& copy);
 	};
 
 	struct FChromaSDKColorFrame2D
@@ -267,6 +266,60 @@ namespace ChromaSDK
 		float Duration;
 
 		FChromaSDKColorFrame2D();
-		FChromaSDKColorFrame2D(const FChromaSDKColorFrame2D& copy);
+	};
+
+	struct FChromaSDKDeviceFrameIndex
+	{
+	public:
+		FChromaSDKDeviceFrameIndex() {
+			_mFrameIndex[(int)EChromaSDKDeviceEnum::DE_ChromaLink] = 0;
+			_mFrameIndex[(int)EChromaSDKDeviceEnum::DE_Headset] = 0;
+			_mFrameIndex[(int)EChromaSDKDeviceEnum::DE_Keyboard] = 0;
+			_mFrameIndex[(int)EChromaSDKDeviceEnum::DE_Keypad] = 0;
+			_mFrameIndex[(int)EChromaSDKDeviceEnum::DE_Mouse] = 0;
+			_mFrameIndex[(int)EChromaSDKDeviceEnum::DE_Mousepad] = 0;
+		}
+		// Index corresponds to EChromaSDKDeviceEnum;
+		int _mFrameIndex[6];
+	};
+
+	enum class EChromaSDKSceneBlend
+	{
+		SB_None,
+		SB_Invert,
+		SB_Threshold,
+		SB_Lerp,
+	};
+
+	enum class EChromaSDKSceneMode
+	{
+		SM_Replace,
+		SM_Max,
+		SM_Min,
+		SM_Average,
+		SM_Multiply,
+		SM_Add,
+		SM_Subtract,
+	};
+
+	struct FChromaSDKSceneEffect
+	{
+	public:
+		std::string _mAnimation = "";
+		bool _mState = false;
+		int _mPrimaryColor = 0;
+		int _mSecondaryColor = 0;
+		int _mSpeed = 1;
+		EChromaSDKSceneBlend _mBlend = EChromaSDKSceneBlend::SB_None;
+		EChromaSDKSceneMode _mMode = EChromaSDKSceneMode::SM_Replace;
+
+		FChromaSDKDeviceFrameIndex _mFrameIndex;
+	};
+
+	struct FChromaSDKScene
+	{
+	public:
+		std::vector<FChromaSDKSceneEffect> _mEffects;
+		void ToggleState(unsigned int effect);
 	};
 }

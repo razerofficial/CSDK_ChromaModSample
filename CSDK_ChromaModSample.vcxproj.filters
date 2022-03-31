@@ -13,46 +13,51 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Razer">
-      <UniqueIdentifier>{3979dfa3-ba2b-433b-9204-0d68da808308}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="Razer\ChromaAnimationAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Razer\ChromaAnimationAPI.h">
-      <Filter>Razer</Filter>
-    </ClInclude>
     <ClInclude Include="Razer\ChromaSDKPluginTypes.h">
-      <Filter>Razer</Filter>
-    </ClInclude>
-    <ClInclude Include="Razer\RzChromaSDKDefines.h">
-      <Filter>Razer</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Razer\RzChromaSDKTypes.h">
-      <Filter>Razer</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Razer\RzChromaSDKDefines.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Razer\RzErrors.h">
-      <Filter>Razer</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Razer\ChromaLogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HandleInput.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CSDK_ChromaModSample.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Razer\ChromaAnimationAPI.cpp">
-      <Filter>Razer</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Razer\ChromaSDKPluginTypes.cpp">
-      <Filter>Razer</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Razer\ChromaLogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HandleInput.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="CChromaEditorLibrary.dll" />
     <None Include="CChromaEditorLibrary64.dll" />
+    <None Include="CChromaEditorLibrary.pdb" />
+    <None Include="CChromaEditorLibrary64.pdb" />
   </ItemGroup>
 </Project>
