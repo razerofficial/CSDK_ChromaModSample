@@ -148,6 +148,7 @@ public:
 		StartEffect(path.c_str());
 	}
 	void InputHandler(
+		bool supportsStreaming,
 		bool& detectedInput,
 		HandleInput& inputEscape,
 		HandleInput& inputO,
@@ -225,7 +226,7 @@ public:
 		if (inputEnter.WasReleased())
 		{
 			detectedInput = true;
-			if (ChromaAnimationAPI::CoreStreamSupportsStreaming())
+			if (supportsStreaming)
 			{
 				switch (_mSelection)
 				{
@@ -283,7 +284,7 @@ public:
 	{
 		return (index == _mSelection) ? "*" : " ";
 	}
-	void Print()
+	void PrintLegend(bool supportsStreaming)
 	{
 		system("CLS");
 		cout << "Welcome to the C++ Chroma Mod Sample" << endl;
@@ -305,7 +306,7 @@ public:
 		list = GetEffects();
 		DisplayList(list, _mEffectId);
 
-		if (ChromaAnimationAPI::CoreStreamSupportsStreaming())
+		if (supportsStreaming)
 		{
 			fprintf(stdout, "Streaming Info (SUPPORTED):\r\n");
 			ChromaSDK::Stream::StreamStatusType status = ChromaAnimationAPI::CoreStreamGetStatus();
@@ -326,7 +327,7 @@ public:
 		}
 
 		int index = -1;
-		if (ChromaAnimationAPI::CoreStreamSupportsStreaming())
+		if (supportsStreaming)
 		{
 			fprintf(stdout, "[%s] Request Shortcode\r\n", IsSelected(++index));
 			fprintf(stdout, "[%s] Request StreamId\r\n", IsSelected(++index));
@@ -359,9 +360,11 @@ private:
 
 void GameLoop()
 {
+	bool supportsStreaming = ChromaAnimationAPI::CoreStreamSupportsStreaming();
+
 	Selections selections;
 	selections.DetectMods();
-	selections.Print();
+	selections.PrintLegend(supportsStreaming);
 	selections.PlayEffect();
 
 	// for app
@@ -381,6 +384,7 @@ void GameLoop()
 	while (true)
 	{
 		selections.InputHandler(
+			supportsStreaming,
 			detectedInput,
 			inputEscape,
 			inputO,
@@ -393,7 +397,7 @@ void GameLoop()
 			inputDown);
 		if (detectedInput)
 		{
-			selections.Print();
+			selections.PrintLegend(supportsStreaming);
 			selections.PlayEffect();
 		}
 		detectedInput = false;
