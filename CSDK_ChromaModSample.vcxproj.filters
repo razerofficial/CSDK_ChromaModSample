@@ -36,6 +36,9 @@
     <ClInclude Include="HandleInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Razer\VerifyLibrarySignature.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Razer\ChromaAnimationAPI.cpp">
@@ -53,11 +56,8 @@
     <ClCompile Include="HandleInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CChromaEditorLibrary.dll" />
-    <None Include="CChromaEditorLibrary64.dll" />
-    <None Include="CChromaEditorLibrary.pdb" />
-    <None Include="CChromaEditorLibrary64.pdb" />
+    <ClCompile Include="Razer\VerifyLibrarySignature.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

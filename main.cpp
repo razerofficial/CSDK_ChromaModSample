@@ -147,6 +147,20 @@ public:
 		path += GetEffects()[_mEffectId];
 		StartEffect(path.c_str());
 	}
+
+	void Cleanup()
+	{
+		ChromaAnimationAPI::StopAll();
+		ChromaAnimationAPI::CloseAll();
+		RZRESULT result = ChromaAnimationAPI::Uninit();
+		ChromaAnimationAPI::UninitAPI();
+		if (result != RZRESULT_SUCCESS)
+		{
+			cerr << "Failed to uninitialize Chroma!" << endl;
+			exit(1);
+		}
+	}
+
 	void InputHandler(
 		bool supportsStreaming,
 		bool& detectedInput,
@@ -163,9 +177,7 @@ public:
 		if (inputEscape.WasReleased())
 		{
 			detectedInput = true;
-			ChromaAnimationAPI::StopAll();
-			ChromaAnimationAPI::CloseAll();
-			ChromaAnimationAPI::Uninit();
+			Cleanup();
 			exit(0);
 			return;
 		}
