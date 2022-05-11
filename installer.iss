@@ -22,7 +22,6 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "x64\Release\CSDK_ChromaModSample.exe"; DestDir: "{userpf}\Razer\CSDK_ChromaModSample"; CopyMode: alwaysoverwrite
-Source: "ChromaAppInfo.xml"; DestDir: "{userpf}\Razer\CSDK_ChromaModSample"; CopyMode: alwaysoverwrite
 Source: "CChromaEditorLibrary.dll"; DestDir: "{userpf}\Razer\CSDK_ChromaModSample"; CopyMode: alwaysoverwrite
 Source: "CChromaEditorLibrary64.dll"; DestDir: "{userpf}\Razer\CSDK_ChromaModSample"; CopyMode: alwaysoverwrite
 Source: "Animations\Base\Fighter\*"; DestDir: "{userpf}\Razer\CSDK_ChromaModSample\Animations\Base\Fighter"; CopyMode: alwaysoverwrite
