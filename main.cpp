@@ -163,6 +163,7 @@ public:
 
 	void InputHandler(
 		bool supportsStreaming,
+		BYTE& platform,
 		bool& detectedInput,
 		HandleInput& inputEscape,
 		HandleInput& inputO,
@@ -172,7 +173,8 @@ public:
 		HandleInput& inputE,
 		HandleInput& inputEnter,
 		HandleInput& inputUp,
-		HandleInput& inputDown)
+		HandleInput& inputDown,
+		HandleInput& inputPlatform)
 	{
 		if (inputEscape.WasReleased())
 		{
@@ -180,6 +182,12 @@ public:
 			Cleanup();
 			exit(0);
 			return;
+		}
+
+		if (inputPlatform.WasReleased())
+		{
+			detectedInput = true;
+			platform = (platform + 1) % 4; //PC, AMAZON LUNA, MS GAME PASS, NVIDIA GFN
 		}
 
 		if (inputO.WasReleased())
@@ -243,7 +251,25 @@ public:
 				switch (_mSelection)
 				{
 				case 0:
-					ChromaAnimationAPI::CoreStreamGetAuthShortcode(_mShortcode, &_mLenShortcode, L"PC", L"C++ Chroma Mod Sample 好");
+					{
+						wstring strPlatform = L"PC";
+						switch (platform)
+						{
+						case 0:
+							strPlatform = L"PC";
+							break;
+						case 1:
+							strPlatform = L"LUNA";
+							break;
+						case 2:
+							strPlatform = L"GEFORCE_NOW";
+							break;
+						case 3:
+							strPlatform = L"GAME_PASS";
+							break;
+						}
+						ChromaAnimationAPI::CoreStreamGetAuthShortcode(_mShortcode, &_mLenShortcode, strPlatform.c_str(), L"C++ Chroma Mod Sample 好");
+					}
 					break;
 				case 1:
 					ChromaAnimationAPI::CoreStreamGetId(_mShortcode, _mStreamId, &_mLenStreamId);
@@ -296,11 +322,15 @@ public:
 	{
 		return (index == _mSelection) ? "*" : " ";
 	}
-	void PrintLegend(bool supportsStreaming)
+	void PrintLegend(bool supportsStreaming, BYTE platform)
 	{
 		system("CLS");
 		cout << "Welcome to the C++ Chroma Mod Sample" << endl;
-		cout << "Press `Esc` to Quit" << endl;
+		if (supportsStreaming)
+		{
+			fprintf(stdout, "Use [P] to switch streaming platforms. ");
+		}
+		cout << "Press [Esc] to Quit" << endl;
 		cout << "Press [O] to Open the animation directory" << endl;
 		cout << "Press [M] to Open the mod directory (note: unpack Mod1.zip and Mod2.zip in the mod directory) " << endl;
 
@@ -341,7 +371,23 @@ public:
 		int index = -1;
 		if (supportsStreaming)
 		{
-			fprintf(stdout, "[%s] Request Shortcode\r\n", IsSelected(++index));
+			fprintf(stdout, "[%s] Request Shortcode for Platform: ", IsSelected(++index));
+
+			switch (platform)
+			{
+			case 0:
+				fprintf(stdout, "Windows PC (PC)\r\n");
+				break;
+			case 1:
+				fprintf(stdout, "Windows Cloud (LUNA)\r\n");
+				break;
+			case 2:
+				fprintf(stdout, "Windows Cloud (GEFORCE NOW)\r\n");
+				break;
+			case 3:
+				fprintf(stdout, "Windows Cloud (GAME PASS)\r\n");
+				break;
+			}
 			fprintf(stdout, "[%s] Request StreamId\r\n", IsSelected(++index));
 			fprintf(stdout, "[%s] Request StreamKey\r\n", IsSelected(++index));
 			fprintf(stdout, "[%s] Release Shortcode\r\n", IsSelected(++index));
@@ -374,9 +420,11 @@ void GameLoop()
 {
 	bool supportsStreaming = ChromaAnimationAPI::CoreStreamSupportsStreaming();
 
+	BYTE platform = 0;
+
 	Selections selections;
 	selections.DetectMods();
-	selections.PrintLegend(supportsStreaming);
+	selections.PrintLegend(supportsStreaming, platform);
 	selections.PlayEffect();
 
 	// for app
@@ -386,6 +434,7 @@ void GameLoop()
 	HandleInput inputS = HandleInput('S');
 	HandleInput inputC = HandleInput('C');
 	HandleInput inputE = HandleInput('E');
+	HandleInput inputPlatform = HandleInput('P');
 
 	// for streaming
 	HandleInput inputEnter = HandleInput(VK_RETURN);
@@ -397,6 +446,7 @@ void GameLoop()
 	{
 		selections.InputHandler(
 			supportsStreaming,
+			platform,
 			detectedInput,
 			inputEscape,
 			inputO,
@@ -406,10 +456,11 @@ void GameLoop()
 			inputE,
 			inputEnter,
 			inputUp,
-			inputDown);
+			inputDown,
+			inputPlatform);
 		if (detectedInput)
 		{
-			selections.PrintLegend(supportsStreaming);
+			selections.PrintLegend(supportsStreaming, platform);
 			selections.PlayEffect();
 		}
 		detectedInput = false;
