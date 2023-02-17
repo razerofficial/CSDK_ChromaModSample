@@ -182,7 +182,7 @@ public:
 		HandleInput& inputDown,
 		HandleInput& inputPlatform)
 	{
-		if (inputEscape.WasReleased())
+		if (inputEscape.WasReleased(true))
 		{
 			detectedInput = true;
 			Cleanup();
@@ -190,13 +190,13 @@ public:
 			return;
 		}
 
-		if (inputPlatform.WasReleased())
+		if (inputPlatform.WasReleased(true))
 		{
 			detectedInput = true;
 			platform = (platform + 1) % 4; //PC, AMAZON LUNA, MS GAME PASS, NVIDIA GFN
 		}
 
-		if (inputO.WasReleased())
+		if (inputO.WasReleased(true))
 		{
 			detectedInput = true;
 			string cmd = "CD \"";
@@ -205,7 +205,7 @@ public:
 			system(cmd.c_str());
 		}
 
-		if (inputM.WasReleased())
+		if (inputM.WasReleased(true))
 		{
 			string cmd = "CD \"";
 			cmd += GetAppModDirectory();
@@ -213,25 +213,25 @@ public:
 			system(cmd.c_str());
 		}
 
-		if (inputS.WasReleased())
+		if (inputS.WasReleased(true))
 		{
 			detectedInput = true;
 			_mSkinId = (_mSkinId + 1) % GetSkins().size();
 		}
 
-		if (inputC.WasReleased())
+		if (inputC.WasReleased(true))
 		{
 			detectedInput = true;
 			_mClassId = (_mClassId + 1) % GetClasses().size();
 		}
 
-		if (inputE.WasReleased())
+		if (inputE.WasReleased(true))
 		{
 			detectedInput = true;
 			_mEffectId = (_mEffectId + 1) % GetEffects().size();
 		}		
 
-		if (inputUp.WasReleased())
+		if (inputUp.WasReleased(true))
 		{
 			detectedInput = true;
 			if (_mSelection > 0)
@@ -240,7 +240,7 @@ public:
 			}
 		}
 
-		if (inputDown.WasReleased())
+		if (inputDown.WasReleased(true))
 		{
 			detectedInput = true;
 			if (_mSelection < MAX_SELECTION)
@@ -249,7 +249,7 @@ public:
 			}
 		}
 
-		if (inputEnter.WasReleased())
+		if (inputEnter.WasReleased(true))
 		{
 			detectedInput = true;
 			if (supportsStreaming)

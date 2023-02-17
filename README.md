@@ -114,6 +114,10 @@ The sample apps use the `CHECK_CHROMA_LIBRARY_SIGNATURE` preprocessor definition
 #endif
 ```
 
+The project has `NoSignatureCheck` configurations to debug with unsigned builds for testing feature updates. The `NoSignatureCheck` configurations do not set the `CHECK_CHROMA_LIBRARY_SIGNATURE` preprocessor definition.
+
+![image_5](images/image_5.png)
+
 <a name="chroma-editor-library"></a>
 
 ## Chroma Editor Library

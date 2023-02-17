@@ -7,16 +7,28 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSDK_ChromaModSample", "CSD
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_NoSignatureCheck|x64 = Debug_NoSignatureCheck|x64
+		Debug_NoSignatureCheck|x86 = Debug_NoSignatureCheck|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release_NoSignatureCheck|x64 = Release_NoSignatureCheck|x64
+		Release_NoSignatureCheck|x86 = Release_NoSignatureCheck|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Debug_NoSignatureCheck|x64.ActiveCfg = Debug_NoSignatureCheck|x64
+		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Debug_NoSignatureCheck|x64.Build.0 = Debug_NoSignatureCheck|x64
+		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Debug_NoSignatureCheck|x86.ActiveCfg = Debug_NoSignatureCheck|Win32
+		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Debug_NoSignatureCheck|x86.Build.0 = Debug_NoSignatureCheck|Win32
 		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Debug|x64.ActiveCfg = Debug|x64
 		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Debug|x64.Build.0 = Debug|x64
 		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Debug|x86.ActiveCfg = Debug|Win32
 		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Debug|x86.Build.0 = Debug|Win32
+		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Release_NoSignatureCheck|x64.ActiveCfg = Release_NoSignatureCheck|x64
+		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Release_NoSignatureCheck|x64.Build.0 = Release_NoSignatureCheck|x64
+		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Release_NoSignatureCheck|x86.ActiveCfg = Release_NoSignatureCheck|Win32
+		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Release_NoSignatureCheck|x86.Build.0 = Release_NoSignatureCheck|Win32
 		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Release|x64.ActiveCfg = Release|x64
 		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Release|x64.Build.0 = Release|x64
 		{29C63FF1-E210-4DE7-856B-C7E5963A0836}.Release|x86.ActiveCfg = Release|Win32

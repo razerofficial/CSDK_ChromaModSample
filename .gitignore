@@ -52,7 +52,6 @@ artifacts/
 *.meta
 *.obj
 *.pch
-*.pdb
 *.pgc
 *.pgd
 *.rsp
@@ -260,3 +259,5 @@ paket-files/
 __pycache__/
 *.pyc
 Output/
+Debug_NoSignatureCheck/
+Release_NoSignatureCheck/
