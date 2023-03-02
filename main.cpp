@@ -15,24 +15,24 @@ using namespace std;
 class Selections
 {
 public:
-	string GetGameAnimationDirectory()
+	wstring GetGameAnimationDirectory()
 	{
-		return "Animations";
+		return L"Animations";
 	}
-	string GetAppDataDirectory()
+	wstring GetAppDataDirectory()
 	{
-		char *pValue;
+		wchar_t *pValue;
 		size_t len;
-		errno_t err = _dupenv_s(&pValue, &len, "APPDATA");
-		string path(pValue);
+		errno_t err = _wdupenv_s(&pValue, &len, L"APPDATA");
+		wstring path(pValue);
 		free(pValue);
-		path += "\\..\\Local";
+		path += L"\\..\\Local";
 		return path;
 	}
-	string GetAppModDirectory()
+	wstring GetAppModDirectory()
 	{
-		string path(GetAppDataDirectory());
-		path += "\\Razer\\CSDK_ChromaModSample\\Mods";
+		wstring path(GetAppDataDirectory());
+		path += L"\\Razer\\CSDK_ChromaModSample\\Mods";
 		return path;
 	}
 	void DetectMods()
@@ -40,11 +40,10 @@ public:
 		// Sample Game Animations and Skins
 		for (const auto & entry : std::filesystem::directory_iterator(GetGameAnimationDirectory()))
 		{
-			if (entry.path().extension().compare("") == 0)
+			if (entry.path().extension().compare(L"") == 0)
 			{
 				wstring ws(entry.path().filename());
-				string str(ws.begin(), ws.end());
-				_mSkins.push_back(str);
+				_mSkins.push_back(ws);
 			}
 		}
 
@@ -53,85 +52,86 @@ public:
 		{
 			for (const auto & entry : std::filesystem::directory_iterator(GetAppModDirectory()))
 			{
-				if (entry.path().extension().compare("") == 0)
+				if (entry.path().extension().compare(L"") == 0)
 				{
 					wstring ws(entry.path().filename());
-					string str(ws.begin(), ws.end());
-					_mSkins.push_back(str);
+					_mSkins.push_back(ws);
 				}
 			}
 		}
 		else
 		{
-			string path = GetAppDataDirectory();
+			wstring path = GetAppDataDirectory();
 
-			path += "\\Razer";
+			path += L"\\Razer";
 			if (!filesystem::exists(path))
 			{
 				filesystem::create_directory(path);
 			}
 
-			path += "\\CSDK_ChromaModSample";
+			path += L"\\CSDK_ChromaModSample";
 			if (!filesystem::exists(path))
 			{
 				filesystem::create_directory(path);
 			}
 
-			path += "\\Mods";
+			path += L"\\Mods";
 			if (!filesystem::exists(path))
 			{
 				filesystem::create_directory(path);
 			}
 		}
 	}
-	vector<string> GetSkins()
+	vector<wstring> GetSkins()
 	{
 		return _mSkins;
 	}
-	vector<string> GetClasses()
+	vector<wstring> GetClasses()
 	{
-		vector<string> list;
-		list.push_back("Fighter");
-		list.push_back("Paladin");
-		list.push_back("Thief");
+		vector<wstring> list;
+		list.push_back(L"Fighter");
+		list.push_back(L"Paladin");
+		list.push_back(L"Thief");
 		return list;
 	}
-	vector<string> GetEffects()
+	vector<wstring> GetEffects()
 	{
-		vector<string> list;
-		list.push_back("Attack");
-		list.push_back("Block");
-		list.push_back("Damage");
+		vector<wstring> list;
+		list.push_back(L"Attack");
+		list.push_back(L"Block");
+		list.push_back(L"Damage");
 		return list;
 	}
-	void StartEffect(const string& path)
+	void StartEffect(const wstring& path)
 	{
 		// Stop and reset any loaded animations
 		ChromaAnimationAPI::StopAll();
 		ChromaAnimationAPI::CloseAll();
 
 		// Reduce the number of frames to speed up the animation
-		ChromaAnimationAPI::ReduceFramesName((path + "_ChromaLink.chroma").c_str(), 2);
-		ChromaAnimationAPI::ReduceFramesName((path + "_Headset.chroma").c_str(), 2);
-		ChromaAnimationAPI::ReduceFramesName((path + "_Keyboard.chroma").c_str(), 2);
-		ChromaAnimationAPI::ReduceFramesName((path + "_Keypad.chroma").c_str(), 2);
-		ChromaAnimationAPI::ReduceFramesName((path + "_Mouse.chroma").c_str(), 2);
-		ChromaAnimationAPI::ReduceFramesName((path + "_Mousepad.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + L"_ChromaLink.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + L"_Headset.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + L"_Keyboard.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + L"_KeyboardExtended.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + L"_Keypad.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + L"_Mouse.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + L"_Mousepad.chroma").c_str(), 2);
 
 		// Se the animation speed to 30 FPS
-		ChromaAnimationAPI::OverrideFrameDurationName((path + "_ChromaLink.chroma").c_str(), 0.033f);
-		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Headset.chroma").c_str(), 0.033f);
-		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Keyboard.chroma").c_str(), 0.033f);
-		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Keypad.chroma").c_str(), 0.033f);
-		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Mouse.chroma").c_str(), 0.033f);
-		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Mousepad.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + L"_ChromaLink.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + L"_Headset.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + L"_Keyboard.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + L"_KeyboardExtended.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + L"_Keypad.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + L"_Mouse.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + L"_Mousepad.chroma").c_str(), 0.033f);
 
 		ChromaAnimationAPI::PlayComposite(path.c_str(), true);
 	}
 	void PlayEffect()
 	{
-		string path;
-		if (_mSkins[_mSkinId].compare("Base") == 0)
+		wstring path;
+		if (_mSkins[_mSkinId].compare(L"Base") == 0)
 		{
 			path = GetGameAnimationDirectory();
 		}
@@ -139,11 +139,11 @@ public:
 		{
 			path = GetAppModDirectory();
 		}
-		path += "\\";
+		path += L"\\";
 		path += _mSkins[_mSkinId];
-		path += "\\";
+		path += L"\\";
 		path += GetClasses()[_mClassId];
-		path += "\\";
+		path += L"\\";
 		path += GetEffects()[_mEffectId];
 		StartEffect(path.c_str());
 	}
@@ -199,18 +199,33 @@ public:
 		if (inputO.WasReleased(true))
 		{
 			detectedInput = true;
-			string cmd = "CD \"";
-			cmd += GetGameAnimationDirectory();
-			cmd += "\" && cmd /c start .";
-			system(cmd.c_str());
+			
+			wstring gameAnimationDirectory = GetGameAnimationDirectory();
+			
+			wstring cmd;
+			// switch to directory
+			cmd += L"CD \"";
+			cmd += gameAnimationDirectory;
+			// open file explorer
+			cmd += L"\" && cmd /c start .";
+			_wsystem(cmd.c_str());
 		}
 
 		if (inputM.WasReleased(true))
 		{
-			string cmd = "CD \"";
-			cmd += GetAppModDirectory();
-			cmd += "\" && cmd /c start .";
-			system(cmd.c_str());
+			detectedInput = true;
+
+			wstring appModDirectory = GetAppModDirectory();
+
+			wstring cmd;
+			// switch to drive, i.e. L"C:"
+			cmd += appModDirectory.substr(0, 2);
+			// switch to directory
+			cmd += L" && CD \"";
+			cmd += appModDirectory;
+			// open file explorer
+			cmd += L"\" && cmd /c start .";
+			_wsystem(cmd.c_str());
 		}
 
 		if (inputS.WasReleased(true))
@@ -306,21 +321,21 @@ public:
 			}
 		}
 	}
-	void DisplayList(vector<string>& list, int index)
+	void DisplayList(vector<wstring>& list, int index)
 	{
 		int i = 0;
-		for (vector<string>::iterator iter = list.begin(); iter < list.end(); ++iter)
+		for (vector<wstring>::iterator iter = list.begin(); iter < list.end(); ++iter)
 		{
-			cout << "[";
+			wcout << L"[";
 			if (i == index)
 			{
-				cout << "*";
+				wcout << L"*";
 			}
 			else
 			{
-				cout << " ";
+				wcout << L" ";
 			}
-			cout << "] " << iter->c_str() << endl;
+			wcout << L"] " << iter->c_str() << endl;
 			++i;
 		}
 	}
@@ -330,32 +345,33 @@ public:
 	}
 	void PrintLegend(bool supportsStreaming, BYTE platform)
 	{
-		system("CLS");
-		cout << "Welcome to the C++ Chroma Mod Sample" << endl;
+		_wsystem(L"CLS");
+		wcout << L"Welcome to the C++ Chroma Mod Sample" << endl;
 		if (supportsStreaming)
 		{
-			fprintf(stdout, "Use [P] to switch streaming platforms. ");
+			fwprintf(stdout, L"Use [P] to switch streaming platforms. ");
 		}
-		cout << "Press [Esc] to Quit" << endl;
-		cout << "Press [O] to Open the animation directory" << endl;
-		cout << "Press [M] to Open the mod directory (note: unpack Mod1.zip and Mod2.zip in the mod directory) " << endl;
+		wcout << L"Press [Esc] to Quit" << endl;
+		wcout << L"Press [O] to Open the animation directory" << endl;
+		wcout << L"Press [M] to Open the mod directory (note: unpack Mod1.zip and Mod2.zip in the mod directory) " << endl;
 
-		vector<string> list;
+		vector<wstring> list;
 
-		cout << "Press [S] to change Selected Skin:" << endl;
+		wcout << L"Press [S] to change Selected Skin:" << endl;
 		list = GetSkins();
 		DisplayList(list, _mSkinId);		
 
-		cout << "Press [C] to change Selected Class:" << endl;
+		wcout << L"Press [C] to change Selected Class:" << endl;
 		list = GetClasses();
 		DisplayList(list, _mClassId);
 
-		cout << "Press [E] to change Chroma Effects:" << endl;
+		wcout << L"Press [E] to change Chroma Effects:" << endl;
 		list = GetEffects();
 		DisplayList(list, _mEffectId);
 
 		if (supportsStreaming)
 		{
+			//Stream API uses char* string
 			fprintf(stdout, "Streaming Info (SUPPORTED):\r\n");
 			ChromaSDK::Stream::StreamStatusType status = ChromaAnimationAPI::CoreStreamGetStatus();
 			fprintf(stdout, "Status: %s\r\n", ChromaAnimationAPI::CoreStreamGetStatusString(status));
@@ -404,7 +420,7 @@ public:
 		}
 	}
 private:
-	vector<string> _mSkins;
+	vector<wstring> _mSkins;
 	int _mSkinId = 0;
 	int _mClassId = 0;
 	int _mEffectId = 0;
