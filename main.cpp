@@ -114,6 +114,7 @@ public:
 		ChromaAnimationAPI::ReduceFramesName((path + "_ChromaLink.chroma").c_str(), 2);
 		ChromaAnimationAPI::ReduceFramesName((path + "_Headset.chroma").c_str(), 2);
 		ChromaAnimationAPI::ReduceFramesName((path + "_Keyboard.chroma").c_str(), 2);
+		ChromaAnimationAPI::ReduceFramesName((path + "_KeyboardExtended.chroma").c_str(), 2);
 		ChromaAnimationAPI::ReduceFramesName((path + "_Keypad.chroma").c_str(), 2);
 		ChromaAnimationAPI::ReduceFramesName((path + "_Mouse.chroma").c_str(), 2);
 		ChromaAnimationAPI::ReduceFramesName((path + "_Mousepad.chroma").c_str(), 2);
@@ -122,6 +123,7 @@ public:
 		ChromaAnimationAPI::OverrideFrameDurationName((path + "_ChromaLink.chroma").c_str(), 0.033f);
 		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Headset.chroma").c_str(), 0.033f);
 		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Keyboard.chroma").c_str(), 0.033f);
+		ChromaAnimationAPI::OverrideFrameDurationName((path + "_KeyboardExtended.chroma").c_str(), 0.033f);
 		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Keypad.chroma").c_str(), 0.033f);
 		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Mouse.chroma").c_str(), 0.033f);
 		ChromaAnimationAPI::OverrideFrameDurationName((path + "_Mousepad.chroma").c_str(), 0.033f);
@@ -199,16 +201,31 @@ public:
 		if (inputO.WasReleased(true))
 		{
 			detectedInput = true;
-			string cmd = "CD \"";
-			cmd += GetGameAnimationDirectory();
+
+			string gameAnimationDirectory = GetGameAnimationDirectory();
+
+			string cmd;
+			// switch to directory
+			cmd += "CD \"";
+			cmd += gameAnimationDirectory;
+			// open file explorer
 			cmd += "\" && cmd /c start .";
 			system(cmd.c_str());
 		}
 
 		if (inputM.WasReleased(true))
 		{
-			string cmd = "CD \"";
-			cmd += GetAppModDirectory();
+			detectedInput = true;
+
+			string appModDirectory = GetAppModDirectory();
+
+			string cmd;
+			// switch to drive, i.e. L"C:"
+			cmd += appModDirectory.substr(0, 2);
+			// switch to directory
+			cmd += " && CD \"";
+			cmd += appModDirectory;
+			// open file explorer
 			cmd += "\" && cmd /c start .";
 			system(cmd.c_str());
 		}
